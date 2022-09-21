@@ -16,9 +16,10 @@ int main(){
 	
 	int i=0;
 	char escolha;
+	FILE *arq;
 	
+	arq = fopen("Histórico.txt", "a+");
 	setlocale(LC_ALL, "Portuguese");
-	
 	printf("::::::::::Localizador do Mundo Invertido::::::::::");
 	for(i=0;i<50;i++){
 		printf("\nDigite o nome da pessoa:");
@@ -50,7 +51,13 @@ int main(){
 		printf("Posição X:%d", pessoa[resultado].posicao[0]);
 		printf("\nPosição Y:%d", pessoa[resultado].posicaoEspelho);
 		linha();
+		fwrite(&pessoa[resultado].nome, sizeof(char), 100, arq);
+		fwrite(&pessoa[resultado].posicao[0], sizeof(int), 100, arq);
+		fwrite(&pessoa[resultado].posicao[1], sizeof(int), 100, arq);
+		fwrite(&pessoa[resultado].posicaoEspelho, sizeof(int), 100, arq);
 	}
+	fclose(arq);
+		
 	getch();
 	return(0);
 }
