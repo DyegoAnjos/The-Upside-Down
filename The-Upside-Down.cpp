@@ -3,25 +3,15 @@
 #include <stdlib.h>
 #include <locale.h>
 #include <ctype.h>
-#include <string.h>
 
 int linha(){
 	printf("\n------------------------------");
 }
 
-bool mundo(int p){
-	if (p<0)
-			return true;
-	
-	else (p>0)
-		return false;
-			
-}
-
 int main(){
 	struct tpessoa{
-		char nome[50], mundo[50];
-		int posicao[1], posicaoEspelho;
+		char nome[50];
+		int posicao[1], posicaoEspelho;	
 	}; struct tpessoa pessoa[50];
 	
 	int i=0;
@@ -51,31 +41,20 @@ int main(){
 		printf("\nPessoa:%s", pessoa[resultado].nome);
 		printf("\nPosição X:%d", pessoa[resultado].posicao[0]);
 		printf("\nPosição Y:%d", pessoa[resultado].posicao[1]);
-		if (pessoa[resultado].posicao[1]==0)
-			strcpy (pessoa[resultado].mundo, "Em ambos dos Mundos");
-		
-		else{
-			if  (mundo(pessoa[resultado].posicao[1])==true)
-				strcpy (pessoa[resultado].mundo, "Mundo invertido");
+		if (pessoa[resultado].posicao[1]<0)
+			printf("\n--Mundo Invertido--");
+		else if (pessoa[resultado].posicao[1]==0)
+			printf("Ponto de interceção (Está em ambas as partes)");
 			
-			else
-				strcpy (pessoa[resultado].mundo, "Mundo normal");
-		}
-		
-			
-		
 		pessoa[resultado].posicaoEspelho=pessoa[resultado].posicao[1]*-1;
 		printf("\n::::::::::Ponto Espelhado::::::::::\n");
 		printf("Posição X:%d", pessoa[resultado].posicao[0]);
 		printf("\nPosição Y:%d", pessoa[resultado].posicaoEspelho);
 		linha();
-		
-//		fprintf(arq, "\nPessoa:%s\nPosição X:%d\nPosição Y:%d\nPosição Invertida\nMundo:", variavél);
+		fprintf(arq, "\nNome:%s\nPosição X:%d\nPosição Y:%d\nPosição Y espelhada:%d\n", pessoa[resultado].nome, pessoa[resultado].posicao[0], pessoa[resultado].posicao[1], pessoa[resultado].posicaoEspelho);
 	}
 	fclose(arq);
 		
 	getch();
 	return(0);
 }
-
-
