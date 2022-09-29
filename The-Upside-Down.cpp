@@ -12,10 +12,12 @@ int main(){
 	
 	struct tpessoa{
 		char nome[50];
-		int posicao[1], posicaoEspelho,mundo=-1;
+		int posicao[2];
+		int posicaoEspelho;
+		int mundo;
 	}; struct tpessoa pessoa[50];
 	
-	int i=0, menu=0;
+	int i=-1, menu=0;
 	int resultado=0;
 	char escolha;
 	FILE *arq;
@@ -34,15 +36,20 @@ int main(){
 			return(0);
 		break;}
 		case 1:{
-			for(i=0;i<50;i++){
+			while(1){
+				i++;
+				system("cls");
 				printf("\nDigite o nome da pessoa:");
 				scanf("%s", &pessoa[i].nome);
+				fwrite(&pessoa[1].nome,sizeof(struct tpessoa),1,arq);
 				
 				printf("\nDigite a posição X:");
 				scanf("%d", &pessoa[i].posicao[0]);
+				fwrite(&pessoa[i].posicao[0],sizeof(struct tpessoa),1,arq);
 				
 				printf("\nDigite a posição Y:");
 				scanf("%d", &pessoa[i].posicao[1]);
+				fwrite(&pessoa[i].posicao[1],sizeof(struct tpessoa),1,arq);
 				
 				if (pessoa[i].posicao[1]<0)
 					pessoa[i].mundo=-1;
@@ -52,10 +59,13 @@ int main(){
 				
 				else
 					pessoa[i].mundo=1;
-					
+				
+				fwrite(&pessoa[i].mundo,sizeof(struct tpessoa),1,arq);
+	
 				pessoa[i].posicaoEspelho=pessoa[i].posicao[1];
 				pessoa[i].posicaoEspelho*=-1;
-					
+				fwrite(&pessoa[i].posicaoEspelho,sizeof(struct tpessoa),1,arq);
+								
 				printf("\nDeseja continuar? S/N");
 				escolha = toupper(getche());
 				if (escolha == 'N') break;
@@ -63,7 +73,8 @@ int main(){
 		break;}
 		
 		case 2:{
-			for(resultado=i;resultado>=i;resultado--){
+			system("cls");
+			for(resultado=0;resultado<=i;resultado++){
 				printf("\nPessoa:%s", pessoa[resultado].nome);
 				printf("\nPosição X:%d", pessoa[resultado].posicao[0]);
 				printf("\nPosição Y:%d", pessoa[resultado].posicao[1]);
@@ -78,8 +89,7 @@ int main(){
 				
 				printf("\n::::::::::Ponto Espelhado::::::::::\n");
 				printf("Posição X:%d", pessoa[resultado].posicao[0]);
-				printf("\nPosição Y:%d", pessoa[resultado].posicaoEspelho);
-				linha();
+				printf("\nPosição Y:%d\n", pessoa[resultado].posicaoEspelho);
 				system("pause");
 			}
 		break;}
@@ -87,7 +97,6 @@ int main(){
 		case 3:{
 			arq = fopen("Histórico.txt", "r");
 			while(1){
-				i++;
 				fread(&pessoa,sizeof(struct tpessoa),1,arq);
 				printf("\nPessoa:%s", pessoa[i].nome);
 				printf("\nPosição X:%d", pessoa[i].posicao[0]);
@@ -116,6 +125,14 @@ int main(){
 	fclose(arq);
 		
 	getch();
+}
+
+int ler()){ 
+	int final;
+ 
+ 	while(final feof (FILE *fp)==0){
+ 		
+	 }
 }
 
 
